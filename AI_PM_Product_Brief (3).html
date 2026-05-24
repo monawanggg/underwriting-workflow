@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AI PM Product Brief — Aria · SBL Collateral Verification</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  /* Supernova color tokens — gray carries a subtle blue undertone */
+  --ink:#1a1f2e;--ink2:#2e3548;--ink3:#576071;--ink4:#8c97a8;--ink5:#b8c2ce;
+  --white:#ffffff;--bg:#f5f6f8;--bg2:#ecedf1;--bg3:#e1e4ea;
+  --b:#d4d8e1;--b2:#bcc2ce;
+  /* Primary brand */
+  --blue:#1068F4;--blue2:#0852c8;--blue3:#043fa0;
+  --blue-soft:rgba(16,104,244,0.08);--blue-mid:rgba(16,104,244,0.14);--blue-str:rgba(16,104,244,0.28);
+  /* Feedback */
+  --green:#1a7d4f;--green-soft:rgba(26,125,79,0.08);--green-str:rgba(26,125,79,0.24);
+  --amber:#b45309;--amber-soft:rgba(180,83,9,0.08);--amber-str:rgba(180,83,9,0.24);
+  --red:#c0392b;--red-soft:rgba(192,57,43,0.08);--red-str:rgba(192,57,43,0.24);
+  /* Shadows — Supernova shadow-s / shadow-m / shadow-l */
+  --shadow-s:0 1px 3px rgba(26,31,46,0.10),0 1px 2px rgba(26,31,46,0.06);
+  --shadow-m:0 4px 8px rgba(26,31,46,0.10),0 2px 4px rgba(26,31,46,0.06);
+  --shadow-l:0 12px 24px rgba(26,31,46,0.12),0 4px 8px rgba(26,31,46,0.08);
+  /* Spacing — 8px base grid */
+  --sp-1:8px;--sp-2:16px;--sp-3:24px;--sp-4:32px;--sp-5:40px;--sp-6:48px;
+  /* Border radius */
+  --r:4px;--r2:8px;--r3:8px;
+  /* Typography */
+  --font:'Roboto',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);font-size:16px;line-height:1.5}
+/* ── NAV — 60px fixed per Supernova spec ── */
+nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--b);display:flex;align-items:stretch;padding:0 var(--sp-4);height:60px;}
+.nav-brand{display:flex;align-items:center;gap:var(--sp-1);margin-right:var(--sp-5);font-size:14px;font-weight:500;color:var(--ink);text-decoration:none;letter-spacing:.01em;}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--blue)}
+.nav-links{display:flex;align-items:stretch;gap:0;flex:1;overflow-x:auto}
+.nav-link{display:flex;align-items:center;font-size:13px;font-weight:400;color:var(--ink3);padding:0 var(--sp-2);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s;}
+.nav-link:hover{color:var(--ink)}
+.nav-link.active{color:var(--blue);border-bottom-color:var(--blue);font-weight:500}
+.nav-badge{font-size:11px;font-weight:500;padding:3px var(--sp-1);border-radius:var(--r);background:var(--blue);color:#fff;margin-left:auto;align-self:center;letter-spacing:.02em;}
+.hero{background:var(--white);border-bottom:1px solid var(--b);}
+.hero-inner{max-width:1080px;margin:0 auto;padding:var(--sp-6) var(--sp-4) 56px;display:grid;grid-template-columns:1fr 320px;gap:var(--sp-6);align-items:start;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:var(--sp-1);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:var(--sp-3);}
+.hero-eyebrow-line{width:20px;height:1.5px;background:var(--blue)}
+.hero h1{font-family:var(--font);font-size:36px;font-weight:500;line-height:1.2;color:var(--ink);margin-bottom:var(--sp-3);letter-spacing:-.3px;}
+.hero h1 em{font-style:normal;color:var(--blue);font-weight:300}
+.hero-lead{font-size:15px;color:var(--ink3);line-height:1.6;max-width:520px;margin-bottom:var(--sp-4);}
+.hero-stats{display:flex;gap:var(--sp-4);flex-wrap:wrap}
+.hero-stat-num{font-size:28px;font-weight:300;color:var(--ink);line-height:1;letter-spacing:-.5px}
+.hero-stat-label{font-size:12px;color:var(--ink4);margin-top:4px;font-weight:400}
+.hero-card{background:var(--bg);border:1px solid var(--b);border-radius:var(--r2);padding:var(--sp-3);box-shadow:var(--shadow-s);}
+.hero-card-label{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink4);margin-bottom:var(--sp-2)}
+.hero-meta-row{display:flex;justify-content:space-between;align-items:baseline;padding:var(--sp-1) 0;border-bottom:1px solid var(--b)}
+.hero-meta-row:last-child{border-bottom:none;padding-bottom:0}
+.hero-meta-key{font-size:13px;color:var(--ink3)}
+.hero-meta-val{font-size:13px;font-weight:500;color:var(--ink);text-align:right}
+/* ── LAYOUT — 32px page margin per Supernova ── */
+.page{max-width:1080px;margin:0 auto;padding:0 var(--sp-4)}
+section{padding:var(--sp-6) 0 var(--sp-4)}
+section+section{border-top:1px solid var(--b)}
+/* ── SECTION HEADERS ── */
+.sec-eyebrow{display:flex;align-items:center;gap:var(--sp-2);margin-bottom:var(--sp-1);}
+.sec-num{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);}
+.sec-num-line{flex:1;height:1px;background:var(--b)}
+.sec-h{font-size:28px;font-weight:500;color:var(--ink);line-height:1.2;margin-bottom:var(--sp-1);}
+.sec-sub{font-size:15px;color:var(--ink3);max-width:620px;line-height:1.6;margin-bottom:var(--sp-4)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-3)}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-3)}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp-3)}
+/* ── CARD — 24px padding per Supernova spec ── */
+.card{background:var(--white);border:1px solid var(--b);border-radius:var(--r2);padding:var(--sp-3);box-shadow:var(--shadow-s);}
+.card-sm{padding:var(--sp-2) var(--sp-3)}
+.card-title{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:4px;line-height:1.4}
+.card-body{font-size:14px;color:var(--ink2);line-height:1.5}
+/* persona */
+.persona{background:var(--white);border:1px solid var(--b);border-radius:var(--r2);overflow:hidden;box-shadow:var(--shadow-s);}
+.persona-top{padding:var(--sp-3) var(--sp-3) var(--sp-3);border-bottom:1px solid var(--b)}
+.persona-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;margin-bottom:var(--sp-2);}
+.persona-role-tag{display:inline-block;font-size:11px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;padding:2px var(--sp-1);border-radius:var(--r);margin-bottom:var(--sp-1);}
+.persona-name{font-size:16px;font-weight:500;color:var(--ink);margin-bottom:2px;}
+.persona-title{font-size:13px;color:var(--ink3);margin-bottom:var(--sp-2)}
+.persona-jtbd{background:var(--bg);border-radius:var(--r);padding:var(--sp-1) var(--sp-2);font-size:13px;color:var(--ink2);line-height:1.5;}
+.persona-bottom{padding:var(--sp-3)}
+.persona-items{list-style:none;display:flex;flex-direction:column;gap:var(--sp-1)}
+.persona-items li{font-size:13px;color:var(--ink2);padding-left:var(--sp-2);position:relative;line-height:1.5;}
+.persona-items li::before{content:'';position:absolute;left:0;top:8px;width:4px;height:4px;border-radius:50%;background:var(--b2);}
+.persona-prim .persona-items li::before{background:var(--blue)}
+/* scope */
+/* scope */
+.scope-card{background:var(--white);border:1px solid var(--b);border-radius:var(--r2);padding:var(--sp-3);display:flex;flex-direction:column;box-shadow:var(--shadow-s);}
+.scope-icon-wrap{width:var(--sp-5);height:var(--sp-5);border-radius:var(--r);background:var(--blue-soft);display:flex;align-items:center;justify-content:center;margin-bottom:var(--sp-2);flex-shrink:0;}
+.scope-icon-wrap svg{width:18px;height:18px;color:var(--blue)}
+.scope-name{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:var(--sp-1)}
+.scope-desc{font-size:13px;color:var(--ink3);line-height:1.5;flex:1}
+.scope-features{margin-top:var(--sp-2);display:flex;flex-direction:column;gap:6px}
+.scope-feat{display:flex;align-items:flex-start;gap:var(--sp-1);font-size:13px;color:var(--ink2);line-height:1.4;}
+.scope-feat::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:6px;}
+/* metrics */
+.metric-card{background:var(--white);border:1px solid var(--b);border-radius:var(--r2);padding:var(--sp-3);box-shadow:var(--shadow-s);}
+.metric-kpi{font-size:32px;font-weight:300;line-height:1;margin-bottom:4px;letter-spacing:-.5px}
+.metric-kpi-green{color:var(--green)}.metric-kpi-blue{color:var(--blue)}.metric-kpi-amber{color:var(--amber)}
+.metric-name{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:4px}
+.metric-desc{font-size:13px;color:var(--ink3);line-height:1.5}
+.metric-baseline{margin-top:var(--sp-2);padding-top:var(--sp-1);border-top:1px solid var(--b);display:flex;justify-content:space-between;font-size:12px;color:var(--ink4);}
+.metric-baseline strong{color:var(--ink2);font-weight:500}
+/* workflow */
+.wf-compare{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--b);border-radius:var(--r2);overflow:hidden;margin-bottom:var(--sp-4);box-shadow:var(--shadow-s);}
+.wf-head{padding:var(--sp-2) var(--sp-3);display:flex;align-items:center;gap:var(--sp-1)}
+.wf-head-old{background:var(--bg2);border-bottom:1px solid var(--b)}
+.wf-head-new{background:var(--blue);border-bottom:1px solid var(--blue2)}
+.wf-head-label{font-size:13px;font-weight:500}
+.wf-head-old .wf-head-label{color:var(--ink2)}
+.wf-head-new .wf-head-label{color:#fff}
+.wf-head-tag{font-size:11px;font-weight:400;padding:2px var(--sp-1);border-radius:var(--r);margin-left:auto}
+.wf-head-old .wf-head-tag{background:var(--bg3);color:var(--ink3)}
+.wf-head-new .wf-head-tag{background:rgba(255,255,255,0.2);color:#fff}
+.wf-body{padding:var(--sp-3);border-right:1px solid var(--b)}
+.wf-col:last-child .wf-body{border-right:none}
+.wf-step{display:flex;gap:var(--sp-2);margin-bottom:var(--sp-2)}
+.wf-step:last-child{margin-bottom:0}
+.wf-step-n{width:24px;height:24px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;margin-top:1px;}
+.wf-step-n-old{background:var(--bg2);color:var(--ink3);border:1px solid var(--b2)}
+.wf-step-n-new{background:var(--blue-soft);color:var(--blue);border:1px solid var(--blue-str)}
+.wf-step-title{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.wf-step-detail{font-size:13px;color:var(--ink3);line-height:1.5}
+.wf-pain{display:inline-flex;align-items:center;font-size:11px;font-weight:500;color:var(--red);background:var(--red-soft);border:1px solid var(--red-str);padding:1px var(--sp-1);border-radius:var(--r);margin-top:4px;}
+.wf-gain{display:inline-flex;align-items:center;font-size:11px;font-weight:500;color:var(--green);background:var(--green-soft);border:1px solid var(--green-str);padding:1px var(--sp-1);border-radius:var(--r);margin-top:4px;}
+.wf-foot{padding:var(--sp-1) var(--sp-3);border-top:1px solid var(--b);display:flex;justify-content:space-between;align-items:center;}
+.wf-foot-old{background:var(--bg2)}.wf-foot-new{background:var(--blue-soft)}
+.wf-foot-label{font-size:12px;color:var(--ink3)}
+.wf-foot-val{font-size:20px;font-weight:300;letter-spacing:-.3px}
+.wf-foot-old .wf-foot-val{color:var(--ink3)}.wf-foot-new .wf-foot-val{color:var(--blue)}
+/* tables — 48px row height, 16px padding per Supernova */
+.to-table{width:100%;border-collapse:collapse;border:1px solid var(--b);border-radius:var(--r2);overflow:hidden;box-shadow:var(--shadow-s);}
+.to-table th{font-size:12px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--ink3);padding:var(--sp-1) var(--sp-2);background:var(--bg2);border-bottom:1px solid var(--b2);text-align:left;}
+.to-table td{font-size:14px;color:var(--ink2);padding:var(--sp-2);vertical-align:top;line-height:1.5;border-bottom:1px solid var(--b);}
+.to-table tr:last-child td{border-bottom:none}
+.to-table tr:hover td{background:var(--bg)}
+.to-decision{font-weight:500;color:var(--ink);font-size:14px}
+.to-table td:first-child{border-right:1px solid var(--b)}
+/* guidelines */
+.gl-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--b);border-radius:var(--r2);overflow:hidden;margin-bottom:var(--sp-4);box-shadow:var(--shadow-s);}
+.gl-card{padding:var(--sp-3);border-right:1px solid var(--b);border-bottom:1px solid var(--b);position:relative;background:var(--white);}
+.gl-card:nth-child(2n){border-right:none}
+.gl-card:nth-last-child(-n+2){border-bottom:none}
+.gl-n{font-size:40px;font-weight:200;color:var(--bg3);line-height:1;position:absolute;top:var(--sp-2);right:var(--sp-3);pointer-events:none;letter-spacing:-1px;}
+.gl-title{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:var(--sp-1);line-height:1.4;padding-right:var(--sp-5)}
+.gl-body{font-size:13px;color:var(--ink3);line-height:1.55;margin-bottom:var(--sp-2)}
+.gl-example{background:var(--bg);border-left:2px solid var(--blue-str);border-radius:0 var(--r) var(--r) 0;padding:var(--sp-1) var(--sp-2);font-size:13px;color:var(--ink2);line-height:1.5;}
+.gl-example strong{color:var(--ink);font-weight:500}
+/* callout */
+.callout{border-left:3px solid;border-radius:0 var(--r2) var(--r2) 0;padding:var(--sp-2) var(--sp-3);margin:var(--sp-3) 0;}
+.callout-blue{border-color:var(--blue);background:var(--blue-soft)}
+.callout-green{border-color:var(--green);background:var(--green-soft)}
+.callout-amber{border-color:var(--amber);background:var(--amber-soft)}
+.callout-red{border-color:var(--red);background:var(--red-soft)}
+.callout p{font-size:14px;color:var(--ink2);line-height:1.55}
+.callout strong{color:var(--ink)}
+/* pills — Supernova label style: rounded rect, not pill */
+.pill{display:inline-block;font-size:11px;font-weight:500;padding:2px var(--sp-1);border-radius:var(--r);letter-spacing:.01em}
+.pill-blue{background:var(--blue-soft);color:var(--blue)}
+.pill-green{background:var(--green-soft);color:var(--green)}
+.pill-amber{background:var(--amber-soft);color:var(--amber)}
+.pill-gray{background:var(--bg3);color:var(--ink3)}
+.pill-red{background:var(--red-soft);color:var(--red)}
+/* insight */
+.insight{background:var(--ink);border-radius:var(--r2);padding:var(--sp-4);margin:var(--sp-4) 0;box-shadow:var(--shadow-m);}
+.insight-label{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink5);margin-bottom:var(--sp-1)}
+.insight-body{font-size:18px;font-weight:300;color:#fff;line-height:1.55;letter-spacing:-.1px}
+/* two-column */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-3);margin-bottom:var(--sp-3)}
+.anno-block{background:var(--white);border:1px solid var(--b);border-radius:var(--r2);overflow:hidden}
+.anno-head{padding:var(--sp-1) var(--sp-3);border-bottom:1px solid var(--b);font-size:12px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--ink3);background:var(--bg2);}
+.anno-body{padding:var(--sp-2) var(--sp-3)}
+.anno-item{display:flex;gap:var(--sp-2);margin-bottom:var(--sp-2)}
+.anno-item:last-child{margin-bottom:0}
+.anno-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:8px}
+.anno-dot-red{background:var(--red)}
+.anno-dot-blue{background:var(--blue)}
+.anno-text{font-size:13px;color:var(--ink2);line-height:1.5}
+.anno-text strong{color:var(--ink);font-weight:500}
+footer{background:var(--white);border-top:1px solid var(--b);padding:var(--sp-3) var(--sp-4);margin-top:var(--sp-6);display:flex;align-items:center;justify-content:space-between;}
+.footer-brand{font-size:14px;font-weight:500;color:var(--ink3)}
+.footer-meta{font-size:12px;color:var(--ink5)}
+@media(max-width:800px){
+  .hero-inner{grid-template-columns:1fr;gap:var(--sp-4)}
+  .hero-inner .hero-sidebar{display:none}
+  .g2,.g3,.g4,.wf-compare,.gl-grid,.two-col{grid-template-columns:1fr}
+  nav,.page,footer{padding-left:var(--sp-3);padding-right:var(--sp-3)}
+  .hero-inner{padding:var(--sp-5) var(--sp-3)}
+  .wf-compare{border:none;gap:var(--sp-3)}
+  .wf-col{border:1px solid var(--b);border-radius:var(--r2);overflow:hidden}
+  .wf-body{border-right:none}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="#" class="nav-brand"><div class="nav-dot"></div>Aria AI &middot; PM Brief</a>
+  <div class="nav-links">
+    <a href="#problem" class="nav-link">01 &middot; Problem statement</a>
+    <a href="#timeline" class="nav-link">02 &middot; Timeline</a>
+    <a href="#users" class="nav-link">03 &middot; User personas</a>
+    <a href="#scope" class="nav-link">04 &middot; Product scope</a>
+    <a href="#strategy" class="nav-link">05 &middot; Strategy &amp; metrics</a>
+    <a href="#workflow" class="nav-link">06 &middot; Workflow</a>
+    <a href="#tradeoffs" class="nav-link">07 &middot; Trade-offs</a>
+    <a href="#guidelines" class="nav-link">08 &middot; AI design</a>
+    <a href="#uxpatterns" class="nav-link">09 &middot; UX patterns</a>
+  </div>
+  <span class="nav-badge">SBL &middot; Step 5 of 7</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow"><div class="hero-eyebrow-line"></div>AI Product Manager Brief &middot; v4.0</div>
+      <h1>Aria &mdash; AI Agent<br/>for <em>Collateral<br/>Verification</em></h1>
+      <p class="hero-lead">This brief answers six foundational product questions for the Aria AI agent embedded in the SBL underwriting platform. It is written for stakeholders and leadership who need to understand not just <em>what</em> we are building &mdash; but <em>why</em> these choices are the right ones, what we are trading away, and how we will know if we are succeeding.</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-num">3</div><div class="hero-stat-label">Core AI features</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">&darr;40%</div><div class="hero-stat-label">Target time-to-decision</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">Q1&ndash;Q2</div><div class="hero-stat-label">2026 delivery</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">7</div><div class="hero-stat-label">Success metrics</div></div>
+      </div>
+    </div>
+    <div class="hero-sidebar">
+      <div class="hero-card">
+        <div class="hero-card-label">Reference case: BL-2024-1147</div>
+        <div class="hero-meta-row"><span class="hero-meta-key">Borrower</span><span class="hero-meta-val">Sarah Powell</span></div>
+        <div class="hero-meta-row"><span class="hero-meta-key">Pledgor</span><span class="hero-meta-val">Powell Family Trust</span></div>
+        <div class="hero-meta-row"><span class="hero-meta-key">Requested line</span><span class="hero-meta-val">$1,500,000</span></div>
+        <div class="hero-meta-row"><span class="hero-meta-key">Portfolio value</span><span class="hero-meta-val">$4,312,840</span></div>
+        <div class="hero-meta-row"><span class="hero-meta-key">LTV target</span><span class="hero-meta-val">55%</span></div>
+        <div class="hero-meta-row"><span class="hero-meta-key">Key risk detected</span><span class="hero-meta-val" style="color:var(--amber)">Third-party pledge</span></div>
+        <div class="hero-meta-row"><span class="hero-meta-key">Resolution path</span><span class="hero-meta-val" style="color:var(--blue)">3 legal documents</span></div>
+        <div class="hero-meta-row"><span class="hero-meta-key">AI agent</span><span class="hero-meta-val" style="color:var(--blue)">Aria</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- 01 PROBLEM -->
+<section id="problem">
+  <div class="sec-eyebrow"><div class="sec-num">01</div><div class="sec-num-line"></div></div>
+  <div class="sec-h">Problem statement</div>
+  <p class="sec-sub">The SBL collateral verification step is the highest-risk, highest-effort step in the underwriting pipeline. Three structural problems make it unsustainable at scale.</p>
+  <div class="g3" style="margin-bottom:var(--sp-3)">
+    <div class="card" style="border-top:3px solid var(--red)">
+      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--red);margin-bottom:6px">Risk detection</div>
+      <div class="card-title">Inconsistent. Human-dependent.</div>
+      <div class="card-body" style="margin-top:6px">Third-party pledge mismatches are caught only if the underwriter notices them. No systematic check exists. Two reviewers on the same case can reach different conclusions.</div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--amber)">
+      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--amber);margin-bottom:6px">Cognitive load</div>
+      <div class="card-title">~63 min of mechanics per case.</div>
+      <div class="card-body" style="margin-top:6px">Document cold-read (~30 min), advisor email drafting (~15 min), policy lookup (~18 min). None of it requires expert judgment. All of it consumes expert time.</div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--blue)">
+      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--blue);margin-bottom:6px">Auditability</div>
+      <div class="card-title">No AI decision trail.</div>
+      <div class="card-body" style="margin-top:6px">As regulators begin requiring documented AI decision trails, the current workflow logs nothing. Every AI-influenced step is invisible to compliance.</div>
+    </div>
+  </div>
+  <div class="callout callout-blue">
+    <p><strong>Hypothesis:</strong> If Aria absorbs the mechanics, detects risks systematically, and logs every step &mdash; underwriters catch more, close faster, and produce a compliance record that scales. We&rsquo;ll know within 90 days.</p>
+  </div>
+</section>
+
+<!-- 02 TIMELINE -->
+<section id="timeline">
+  <div class="sec-eyebrow"><div class="sec-num">02</div><div class="sec-num-line"></div></div>
+  <div class="sec-h">Project timeline</div>
+  <p class="sec-sub">Q1&ndash;Q2 2026. Ship a production co-pilot in Q1. Expand AI authority based on real data in Q2.</p>
+  <div style="border:1px solid var(--b);border-radius:var(--r2);overflow:hidden;box-shadow:var(--shadow-s);margin-bottom:var(--sp-3)">
+    <div style="display:grid;grid-template-columns:140px 1fr;border-bottom:1px solid var(--b)">
+      <div style="padding:var(--sp-3);background:var(--blue);display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:11px;font-weight:500;color:rgba(255,255,255,0.65);letter-spacing:.06em;text-transform:uppercase">Q1 2026</div>
+        <div style="font-size:20px;font-weight:300;color:#fff">Jan &ndash; Mar</div>
+        <span style="font-size:11px;font-weight:500;background:rgba(255,255,255,0.18);color:#fff;padding:2px 8px;border-radius:var(--r);align-self:flex-start">Launch</span>
+      </div>
+      <div style="padding:var(--sp-3);display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--sp-2)">
+        <div>
+          <div style="font-size:11px;font-weight:500;color:var(--ink4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Jan</div>
+          <div style="font-size:13px;color:var(--ink2);line-height:1.5">Build all 3 AI features. Human confirmation required on every step.</div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:500;color:var(--ink4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Feb</div>
+          <div style="font-size:13px;color:var(--ink2);line-height:1.5">Closed pilot with 4&ndash;6 mid-level underwriters. Baseline confirmation rate, override rate, time-to-decision.</div>
+        </div>
+        <div style="background:var(--blue-soft);border-radius:var(--r);padding:var(--sp-1) var(--sp-2)">
+          <div style="font-size:11px;font-weight:500;color:var(--blue);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Mar &middot; Gate</div>
+          <div style="font-size:13px;color:var(--ink2);line-height:1.5">Confirmation &ge;75% &middot; Override 10&ndash;25% &middot; Time &le;55 min</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:140px 1fr">
+      <div style="padding:var(--sp-3);background:var(--bg2);border-right:1px solid var(--b);display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:11px;font-weight:500;color:var(--ink4);letter-spacing:.06em;text-transform:uppercase">Q2 2026</div>
+        <div style="font-size:20px;font-weight:300;color:var(--ink)">Apr &ndash; Jun</div>
+        <span style="font-size:11px;font-weight:500;background:var(--green-soft);color:var(--green);padding:2px 8px;border-radius:var(--r);border:1px solid var(--green-str);align-self:flex-start">Expand</span>
+      </div>
+      <div style="padding:var(--sp-3);display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--sp-2)">
+        <div>
+          <div style="font-size:11px;font-weight:500;color:var(--ink4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Apr</div>
+          <div style="font-size:13px;color:var(--ink2);line-height:1.5">Retrain on Q1 override data. Improve accuracy on complex trust structures.</div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:500;color:var(--ink4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">May</div>
+          <div style="font-size:13px;color:var(--ink2);line-height:1.5">Senior underwriter rollout with reduced checklist friction and power-user Aria mode.</div>
+        </div>
+        <div style="background:var(--green-soft);border-radius:var(--r);padding:var(--sp-1) var(--sp-2);border:1px solid var(--green-str)">
+          <div style="font-size:11px;font-weight:500;color:var(--green);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Jun &middot; Gate</div>
+          <div style="font-size:13px;color:var(--ink2);line-height:1.5">Confirmation &ge;80% &middot; Senior NPS &ge;+20 &middot; First selective automation approved</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 PERSONAS -->
+<section id="users">
+  <div class="sec-eyebrow"><div class="sec-num">03</div><div class="sec-num-line"></div></div>
+  <div class="sec-h">User personas</div>
+  <p class="sec-sub">Two internal users. Different experience levels. Different failure modes. One product must serve both.</p>
+  <div class="g2" style="margin-bottom:var(--sp-3)">
+
+    <div class="persona persona-prim">
+      <div class="persona-top">
+        <div class="persona-avatar" style="background:var(--blue-soft);color:var(--blue)">WC</div>
+        <span class="persona-role-tag" style="background:var(--blue-soft);color:var(--blue)">Mid-level &middot; Primary target</span>
+        <div class="persona-name">William Chen</div>
+        <div class="persona-title">SBL Underwriter &middot; 3 years &middot; 8&ndash;15 cases/week</div>
+        <div class="persona-jtbd">&ldquo;Make a confident, defensible decision on every case without missing a risk signal.&rdquo;</div>
+      </div>
+      <div class="persona-bottom">
+        <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--red);margin-bottom:6px">Pain points</div>
+        <ul class="persona-items" style="margin-bottom:var(--sp-2)">
+          <li>No systematic flag for third-party pledge mismatches &mdash; relies on noticing the discrepancy while reading.</li>
+          <li>Writes every advisor email from scratch. 15 min of logistics that requires knowledge but not judgment.</li>
+          <li>Policy questions pull him out of the case. Each interruption costs 12&ndash;18 min of recovery time.</li>
+          <li>Won&rsquo;t trust AI that just gives answers. Needs the source to confirm. &ldquo;Aria says so&rdquo; isn&rsquo;t compliance-defensible.</li>
+        </ul>
+        <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--blue);margin-bottom:6px">Aria must</div>
+        <ul class="persona-items">
+          <li>Surface risks he&rsquo;d miss &mdash; with the source cited every time.</li>
+          <li>Eliminate the drafting and lookup work. Free him for judgment calls.</li>
+          <li>Feel like a faster version of his own process, not a junior checking his work.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="persona">
+      <div class="persona-top">
+        <div class="persona-avatar" style="background:var(--bg2);color:var(--ink3)">MR</div>
+        <span class="persona-role-tag" style="background:var(--bg2);color:var(--ink3)">Senior &middot; 10+ years</span>
+        <div class="persona-name">Margaret Reyes</div>
+        <div class="persona-title">SBL Senior Underwriter &middot; 10+ years &middot; Team quality standard</div>
+        <div class="persona-jtbd">&ldquo;Make me faster. Don&rsquo;t make me prove I already know how to do my job.&rdquo;</div>
+      </div>
+      <div class="persona-bottom">
+        <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--red);margin-bottom:6px">Pain points</div>
+        <ul class="persona-items" style="margin-bottom:var(--sp-2)">
+          <li>Rigid checklists feel condescending. A tool that walks her through steps she&rsquo;s done 500 times gets ignored.</li>
+          <li>Opaque AI destroys trust fast. One confidently wrong answer with no reasoning and she&rsquo;s done with it.</li>
+          <li>Higher volume = mechanical overhead costs her more total time than it costs William.</li>
+          <li>High adoption risk: if she publicly dismisses Aria, the whole team follows her lead.</li>
+        </ul>
+        <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--blue);margin-bottom:6px">Aria must</div>
+        <ul class="persona-items">
+          <li>Get out of her way. Collapsible panel, minimal friction, no mandatory hand-holding.</li>
+          <li>Surface the 5% of cases she hasn&rsquo;t seen before &mdash; without crying wolf on the 95% she knows cold.</li>
+          <li>Earn her endorsement. Her &ldquo;Aria is useful&rdquo; is worth more than any onboarding campaign.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+  <div class="insight">
+    <div class="insight-label">The core design tension</div>
+    <div class="insight-body">&ldquo;William needs structure to stay safe. Margaret needs freedom to stay fast. The solution: structured default, expert compression &mdash; same AI intelligence, different friction levels.&rdquo;</div>
+  </div>
+</section>
+
+<!-- 04 SCOPE -->
+<section id="scope">
+  <div class="sec-eyebrow"><div class="sec-num">04</div><div class="sec-num-line"></div></div>
+  <div class="sec-h">Product scope</div>
+  <p class="sec-sub">Three AI features scoped to Step 5 of 7 in the SBL pipeline. Each eliminates a specific, documented pain point.</p>
+  <div class="g3" style="margin-bottom:var(--sp-3)">
+    <div class="scope-card">
+      <div class="scope-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      </div>
+      <div class="scope-name">AI Summary Card + Checklist</div>
+      <div class="scope-desc">Aria reads all documents before the underwriter touches a single file and delivers a structured briefing in under 2 minutes. Replaces the 25&ndash;30 min cold-read.</div>
+      <div class="scope-features">
+        <div class="scope-feat">Case overview with ranked risk findings</div>
+        <div class="scope-feat">Dynamic checklist linked 1:1 to task cards</div>
+        <div class="scope-feat">Confirm / Needs Review per step &mdash; full audit trail</div>
+      </div>
+    </div>
+    <div class="scope-card">
+      <div class="scope-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg>
+      </div>
+      <div class="scope-name">AI Document Extraction + Verification</div>
+      <div class="scope-desc">Aria parses uploaded documents, extracts key fields, and cross-checks ownership chains. Third-party pledge mismatches are flagged automatically &mdash; no manual cross-reference required.</div>
+      <div class="scope-features">
+        <div class="scope-feat">Borrower &rarr; Pledgor &rarr; Trustee relationship mapping</div>
+        <div class="scope-feat">Missing document identification with required doc list</div>
+        <div class="scope-feat">Collateral eligibility check (flags ineligible assets)</div>
+      </div>
+    </div>
+    <div class="scope-card">
+      <div class="scope-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      </div>
+      <div class="scope-name">AI Chat Assistant (Aria)</div>
+      <div class="scope-desc">Collapsible panel available throughout the workflow. Answers policy questions inline, drafts advisor emails, and cites the specific document and page behind every answer.</div>
+      <div class="scope-features">
+        <div class="scope-feat">Inline chip prompts at each task step</div>
+        <div class="scope-feat">Source-cited answers &mdash; no opaque outputs</div>
+        <div class="scope-feat">Override feedback loop: captures the correction, not just the click</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 STRATEGY -->
+<section id="strategy">
+  <div class="sec-eyebrow"><div class="sec-num">05</div><div class="sec-num-line"></div></div>
+  <div class="sec-h">Strategy &amp; success metrics</div>
+  <p class="sec-sub">The business case is risk-adjusted revenue: faster approvals on good loans, fewer defects on approved ones. Metrics must be honest about what the AI is actually doing.</p>
+  <div class="insight" style="margin-top:0;margin-bottom:var(--sp-3)">
+    <div class="insight-label">The bet</div>
+    <div class="insight-body">&ldquo;35 fewer minutes per case on mechanics = more time on judgment = better loans, fewer defaults, a compliance record that scales.&rdquo;</div>
+  </div>
+  <div class="g4" style="margin-bottom:var(--sp-3)">
+    <div class="metric-card">
+      <div class="metric-kpi metric-kpi-green">&darr;40%</div>
+      <div class="metric-name">Time-to-decision</div>
+      <div class="metric-desc">90 min &rarr; &lt;55 min per case</div>
+      <div class="metric-baseline"><span>Baseline</span><strong>~90 min</strong></div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-kpi metric-kpi-blue">&ge;75%</div>
+      <div class="metric-name">AI confirmation rate</div>
+      <div class="metric-desc">Tasks confirmed without modification. Proxy for AI accuracy.</div>
+      <div class="metric-baseline"><span>Target</span><strong>Day 90</strong></div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-kpi metric-kpi-amber">10&ndash;25%</div>
+      <div class="metric-name">Override rate</div>
+      <div class="metric-desc">&lt;10% = rubber-stamping. &gt;30% = broken trust.</div>
+      <div class="metric-baseline"><span>Monitor from</span><strong>Day 1</strong></div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-kpi metric-kpi-green">&darr;20%</div>
+      <div class="metric-name">Post-approval defects</div>
+      <div class="metric-desc">Collateral issues found after approval. The ultimate test.</div>
+      <div class="metric-baseline"><span>Window</span><strong>12 months</strong></div>
+    </div>
+  </div>
+  <table class="to-table" style="margin-bottom:var(--sp-3)">
+    <thead>
+      <tr>
+        <th style="width:180px">Metric</th>
+        <th>What it actually tells us</th>
+        <th style="width:110px">Baseline</th>
+        <th style="width:110px">Target</th>
+        <th style="width:90px">Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="to-decision">Time-to-decision</div></td>
+        <td>How much cognitive labor Aria absorbs. Must be read alongside override rate &mdash; fast + rubber-stamping = worse than slow + careful.</td>
+        <td>~90 min</td><td style="color:var(--green);font-weight:500">&lt;55 min</td><td><span class="pill pill-blue">Leading</span></td>
+      </tr>
+      <tr>
+        <td><div class="to-decision">AI confirmation rate</div></td>
+        <td>Cleanest proxy for AI accuracy at the task level. Below 60% for two consecutive weeks triggers model review.</td>
+        <td>N/A</td><td style="color:var(--blue);font-weight:500">&ge;75%</td><td><span class="pill pill-blue">Leading</span></td>
+      </tr>
+      <tr>
+        <td><div class="to-decision">Override rate</div></td>
+        <td><strong>Most important metric.</strong> Tells us if AI is calibrated AND if users are engaging critically. A drop below 8% triggers an immediate review &mdash; it looks like success but signals rubber-stamping.</td>
+        <td>N/A</td><td style="color:var(--amber);font-weight:500">10&ndash;25%</td><td><span class="pill pill-amber">Health</span></td>
+      </tr>
+      <tr>
+        <td><div class="to-decision">Document turnaround</div></td>
+        <td>Days from missing doc flag to receipt. Measures whether Aria&rsquo;s email drafts are producing faster, more complete advisor responses.</td>
+        <td>~4.5 days</td><td style="color:var(--green);font-weight:500">&lt;3 days</td><td><span class="pill pill-blue">Leading</span></td>
+      </tr>
+      <tr>
+        <td><div class="to-decision">Post-approval defect rate</div></td>
+        <td>If this doesn&rsquo;t fall after 12 months, Aria is making the process feel more professional without improving actual decisions.</td>
+        <td>Establish</td><td style="color:var(--green);font-weight:500">&darr;20% @ 12mo</td><td><span class="pill pill-red">Lagging</span></td>
+      </tr>
+      <tr>
+        <td><div class="to-decision">Underwriter NPS</div></td>
+        <td>&ldquo;Would you recommend this workflow?&rdquo; The most honest signal of daily utility. Predicts long-term adoption.</td>
+        <td>Establish</td><td style="color:var(--green);font-weight:500">&ge;+30</td><td><span class="pill pill-green">Sentiment</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 06 WORKFLOW -->
+<section id="workflow">
+  <div class="sec-eyebrow"><div class="sec-num">06</div><div class="sec-num-line"></div></div>
+  <div class="sec-h">Traditional vs AI Agent workflow</div>
+  <p class="sec-sub">The manual workflow is not broken &mdash; it cannot scale. Quality depends on who is reviewing, on which day. The AI agent sets a consistent floor without capping expert judgment.</p>
+  <div class="wf-compare">
+    <div class="wf-col">
+      <div class="wf-head wf-head-old"><span style="font-size:15px">&#128203;</span><span class="wf-head-label">Traditional</span><span class="wf-head-tag">Manual</span></div>
+      <div class="wf-body">
+        <div class="wf-step"><div class="wf-step-n wf-step-n-old">1</div><div><div class="wf-step-title">Cold-read all documents</div><div class="wf-step-detail">Underwriter reads each PDF and reconstructs the ownership chain manually.</div><div class="wf-pain">~25 min &middot; attention-dependent</div></div></div>
+        <div class="wf-step"><div class="wf-step-n wf-step-n-old">2</div><div><div class="wf-step-title">Manual risk identification</div><div class="wf-step-detail">Third-party pledges caught only if the reader notices the Borrower &ne; Pledgor mismatch.</div><div class="wf-pain">No systematic check</div></div></div>
+        <div class="wf-step"><div class="wf-step-n wf-step-n-old">3</div><div><div class="wf-step-title">Draft advisor email from scratch</div><div class="wf-step-detail">Contact lookup, document list, SBL-formatted language &mdash; all written from memory.</div><div class="wf-pain">~15 min &middot; inconsistent</div></div></div>
+        <div class="wf-step"><div class="wf-step-n wf-step-n-old">4</div><div><div class="wf-step-title">Ad hoc document tracking</div><div class="wf-step-detail">No system. Underwriter monitors inbox manually. Follow-ups when remembered.</div><div class="wf-pain">4.5 day avg turnaround</div></div></div>
+        <div class="wf-step"><div class="wf-step-n wf-step-n-old">5</div><div><div class="wf-step-title">External policy lookup</div><div class="wf-step-detail">Edge case questions require switching to policy docs or interrupting a senior colleague.</div><div class="wf-pain">12&ndash;18 min &middot; inconsistent answers</div></div></div>
+      </div>
+      <div class="wf-foot wf-foot-old"><span class="wf-foot-label">Avg time</span><span class="wf-foot-val">~90 min</span></div>
+    </div>
+    <div class="wf-col">
+      <div class="wf-head wf-head-new"><span style="font-size:15px">&#9889;</span><span class="wf-head-label">AI Agent (Aria)</span><span class="wf-head-tag">Target</span></div>
+      <div class="wf-body">
+        <div class="wf-step"><div class="wf-step-n wf-step-n-new">1</div><div><div class="wf-step-title">AI Summary Card before first click</div><div class="wf-step-detail">Aria reads all documents simultaneously and delivers a structured risk briefing.</div><div class="wf-gain">~2 min &middot; consistent</div></div></div>
+        <div class="wf-step"><div class="wf-step-n wf-step-n-new">2</div><div><div class="wf-step-title">Third-party pledge auto-detected</div><div class="wf-step-detail">Aria flags Borrower &ne; Pledgor with the specific policy reference and resolution path.</div><div class="wf-gain">Zero-miss on structure</div></div></div>
+        <div class="wf-step"><div class="wf-step-n wf-step-n-new">3</div><div><div class="wf-step-title">Advisor email pre-populated</div><div class="wf-step-detail">Attorney contact, loan reference, required docs, SBL language &mdash; inline, ready to send.</div><div class="wf-gain">~2 min &middot; professional</div></div></div>
+        <div class="wf-step"><div class="wf-step-n wf-step-n-new">4</div><div><div class="wf-step-title">Documents verified on receipt</div><div class="wf-step-detail">Aria cross-checks each received document and updates the checklist automatically.</div><div class="wf-gain">Target &lt;3 day turnaround</div></div></div>
+        <div class="wf-step"><div class="wf-step-n wf-step-n-new">5</div><div><div class="wf-step-title">Policy answers inline</div><div class="wf-step-detail">Aria answers edge case questions in context, citing the specific policy and document source.</div><div class="wf-gain">Zero context-switch</div></div></div>
+      </div>
+      <div class="wf-foot wf-foot-new"><span class="wf-foot-label">Target time</span><span class="wf-foot-val">&lt;55 min</span></div>
+    </div>
+  </div>
+  <div class="callout callout-green">
+    <p><strong>Why agent, not improved manual:</strong> Consistency and auditability cannot be scaled through process improvement alone. Every AI-assisted decision generates a documented reasoning chain. The moat widens as override data compounds model accuracy over time.</p>
+  </div>
+</section>
+
+<!-- 07 TRADE-OFFS -->
+<section id="tradeoffs">
+  <div class="sec-eyebrow"><div class="sec-num">07</div><div class="sec-num-line"></div></div>
+  <div class="sec-h">Product trade-offs</div>
+  <p class="sec-sub">Six deliberate choices. What we chose, what we gave up, and why the trade was worth it.</p>
+  <table class="to-table" style="margin-bottom:var(--sp-3)">
+    <thead>
+      <tr><th style="width:180px">Decision</th><th>What we chose &amp; why</th><th style="width:200px">What we gave up</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="to-decision">Linear checklist</div><div style="margin-top:4px"><span class="pill pill-blue">Structured</span></div></td>
+        <td>Creates an auditable step-by-step record. Ensures junior underwriters can&rsquo;t skip risk flags. Compliance requires it.</td>
+        <td style="font-size:13px;color:var(--ink3)">Expert freedom. Senior underwriters may resent the sequence. Mitigated by the Aria panel alongside.</td>
+      </tr>
+      <tr>
+        <td><div class="to-decision">Human confirms every task</div><div style="margin-top:4px"><span class="pill pill-green">Human in loop</span></div></td>
+        <td>Trust must be earned before delegation. We need 90 days of override data before automating any step. A single high-profile auto-approval error sets the AI program back 18 months.</td>
+        <td style="font-size:13px;color:var(--ink3)">Maximum throughput. Confirmation adds friction. We design Confirm to be &lt;10 seconds to minimize it.</td>
+      </tr>
+      <tr>
+        <td><div class="to-decision">Aria panel is opt-in</div><div style="margin-top:4px"><span class="pill pill-blue">Collapsible</span></div></td>
+        <td>Senior underwriters reject tools that feel imposed. Opt-in signals the AI is working for them, not supervising them.</td>
+        <td style="font-size:13px;color:var(--ink3)">Always-on guidance. Mitigated by proactive inline banners on task cards for high-confidence findings.</td>
+      </tr>
+      <tr>
+        <td><div class="to-decision">Email draft is inline</div><div style="margin-top:4px"><span class="pill pill-green">No context switch</span></div></td>
+        <td>Every tool switch costs 23 minutes of cognitive recovery. Draft stays inside the workflow. Underwriter reviews and sends without leaving the case.</td>
+        <td style="font-size:13px;color:var(--ink3)">Email client preference. Copy-to-clipboard available as a fallback.</td>
+      </tr>
+      <tr>
+        <td><div class="to-decision">&ldquo;Needs Review&rdquo; not &ldquo;Revoke&rdquo;</div><div style="margin-top:4px"><span class="pill pill-amber">Label</span></div></td>
+        <td>&ldquo;Revoke&rdquo; makes overrides feel punitive. Underwriters suppress them. We need overrides &mdash; they are our most important quality signal. The label protects the data.</td>
+        <td style="font-size:13px;color:var(--ink3)">One fewer word. Worth it.</td>
+      </tr>
+      <tr>
+        <td><div class="to-decision">Always show source</div><div style="margin-top:4px"><span class="pill pill-blue">Cited always</span></div></td>
+        <td>Uncited AI answers are not compliance-defensible in SBL. Citations let underwriters verify reasoning and give them language to defend decisions. Opaque AI is a liability, not a feature.</td>
+        <td style="font-size:13px;color:var(--ink3)">Visual simplicity. Managed with progressive disclosure: summary visible, full citation on expand.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 08 GUIDELINES -->
+<section id="guidelines">
+  <div class="sec-eyebrow"><div class="sec-num">08</div><div class="sec-num-line"></div></div>
+  <div class="sec-h">AI design guidelines</div>
+  <p class="sec-sub">Six principles specific to SBL&rsquo;s regulated, high-accountability context.</p>
+  <div class="gl-grid" style="margin-bottom:var(--sp-4)">
+    <div class="gl-card"><div class="gl-n">01</div><div class="gl-title">Recommend, don&rsquo;t decide</div><div class="gl-body">Every Aria output is a recommendation. The underwriter&rsquo;s Confirm is the decision. This is the product&rsquo;s legal posture and its trust model.</div><div class="gl-example"><strong>Right:</strong> &ldquo;I recommend confirming ownership.&rdquo;&nbsp; <strong>Wrong:</strong> &ldquo;Ownership: Confirmed.&rdquo;</div></div>
+    <div class="gl-card"><div class="gl-n">02</div><div class="gl-title">Always cite the source</div><div class="gl-body">Every finding references the document, page, and field. An uncited AI answer is not defensible in a compliance review.</div><div class="gl-example"><strong>In practice:</strong> &ldquo;Fidelity statement p.5 &mdash; account I83894899 registered to Powell Family Trust.&rdquo;</div></div>
+    <div class="gl-card"><div class="gl-n">03</div><div class="gl-title">Design uncertainty first</div><div class="gl-body">The cases that break Aria are the highest-stakes ones. Low-confidence and escalation states are not afterthoughts &mdash; they are the most important design work.</div><div class="gl-example"><strong>In practice:</strong> Amber badge + &ldquo;Outside my confidence range &mdash; recommend escalating.&rdquo; One-tap path always visible.</div></div>
+    <div class="gl-card"><div class="gl-n">04</div><div class="gl-title">Reduce cognitive load</div><div class="gl-body">If adding an AI feature requires more clicks or more reading, it doesn&rsquo;t ship. Every feature is measured by decisions removed, not capabilities added.</div><div class="gl-example"><strong>In practice:</strong> Chip prompts give a direct answer in one tap. No panel, no typing, no waiting.</div></div>
+    <div class="gl-card"><div class="gl-n">05</div><div class="gl-title">Feedback is a product feature</div><div class="gl-body">The override delta &mdash; what Aria said vs. what the underwriter did &mdash; is the training signal that compounds model quality each quarter.</div><div class="gl-example"><strong>In practice:</strong> &ldquo;Needs Review&rdquo; triggers &ldquo;What would be more accurate?&rdquo; &mdash; pre-set options + free text. 15 seconds max.</div></div>
+    <div class="gl-card"><div class="gl-n">06</div><div class="gl-title">Log everything. Keep it reversible.</div><div class="gl-body">Every AI output, every confirmation, every timestamp &mdash; logged. Every confirmed step re-openable. The activity feed is the product&rsquo;s compliance backbone.</div><div class="gl-example"><strong>In practice:</strong> &ldquo;12:04 Aria flagged pledge risk &rarr; 12:07 William confirmed &rarr; 12:09 outreach sent.&rdquo;</div></div>
+  </div>
+</section>
+
+<!-- 09 UX PATTERNS -->
+<section id="uxpatterns">
+  <div class="sec-eyebrow"><div class="sec-num">09</div><div class="sec-num-line"></div></div>
+  <div class="sec-h">AI UX design patterns</div>
+  <p class="sec-sub">Five interaction patterns that make Aria feel like part of the workflow, not a separate tool bolted on.</p>
+  <div class="g2" style="margin-bottom:var(--sp-3)">
+
+    <div style="background:var(--white);border:1px solid var(--b);border-radius:var(--r2);overflow:hidden;box-shadow:var(--shadow-s)">
+      <div style="padding:var(--sp-3) var(--sp-3) var(--sp-2)">
+        <div style="display:flex;align-items:center;gap:var(--sp-1);margin-bottom:var(--sp-1)">
+          <div style="width:32px;height:32px;border-radius:var(--r);background:var(--blue-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+          <div><div style="font-size:13px;font-weight:500;color:var(--ink)">AI Summary Card</div><div style="font-size:11px;color:var(--ink4)">Proactive briefing</div></div>
+        </div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.5;margin-bottom:var(--sp-2)">Aria speaks first before the underwriter takes any action. Delivers ranked risks and a linked checklist. Eliminates the 25 min cold-read.</div>
+        <div style="display:flex;gap:var(--sp-3)">
+          <div><div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--ink4);margin-bottom:3px">Problem</div><div style="font-size:12px;color:var(--ink2)">25 min cold-read replaced by 2 min structured brief.</div></div>
+          <div><div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--ink4);margin-bottom:3px">Model</div><div style="font-size:12px;color:var(--ink2)">AI acts first. Human reviews and confirms.</div></div>
+        </div>
+      </div>
+      <div style="padding:8px var(--sp-3);background:var(--blue-soft);border-top:1px solid var(--blue-str);font-size:12px;color:var(--blue);font-weight:500">&#8594; Step 5 entry &middot; collateral verification</div>
+    </div>
+
+    <div style="background:var(--white);border:1px solid var(--b);border-radius:var(--r2);overflow:hidden;box-shadow:var(--shadow-s)">
+      <div style="padding:var(--sp-3) var(--sp-3) var(--sp-2)">
+        <div style="display:flex;align-items:center;gap:var(--sp-1);margin-bottom:var(--sp-1)">
+          <div style="width:32px;height:32px;border-radius:var(--r);background:var(--green-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+          <div><div style="font-size:13px;font-weight:500;color:var(--ink)">Confirm / Needs Review</div><div style="font-size:11px;color:var(--ink4)">Human-in-loop checkpoint</div></div>
+        </div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.5;margin-bottom:var(--sp-2)">Every AI task has a binary human gate. Confirm advances the workflow. Needs Review flags it for correction. The label choice protects the override rate signal.</div>
+        <div style="display:flex;gap:var(--sp-3)">
+          <div><div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--ink4);margin-bottom:3px">Problem</div><div style="font-size:12px;color:var(--ink2)">Audit gaps when AI outputs go unconfirmed.</div></div>
+          <div><div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--ink4);margin-bottom:3px">Model</div><div style="font-size:12px;color:var(--ink2)">AI acts. Human gates. No task advances without a decision.</div></div>
+        </div>
+      </div>
+      <div style="padding:8px var(--sp-3);background:var(--green-soft);border-top:1px solid var(--green-str);font-size:12px;color:var(--green);font-weight:500">&#8594; All 4 checklist task cards</div>
+    </div>
+
+    <div style="background:var(--white);border:1px solid var(--b);border-radius:var(--r2);overflow:hidden;box-shadow:var(--shadow-s)">
+      <div style="padding:var(--sp-3) var(--sp-3) var(--sp-2)">
+        <div style="display:flex;align-items:center;gap:var(--sp-1);margin-bottom:var(--sp-1)">
+          <div style="width:32px;height:32px;border-radius:var(--r);background:var(--amber-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div><div style="font-size:13px;font-weight:500;color:var(--ink)">Inline Chip Prompts</div><div style="font-size:11px;color:var(--ink4)">Contextual micro-entry</div></div>
+        </div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.5;margin-bottom:var(--sp-2)">Task-specific action buttons embedded inside each card. &ldquo;Explain this risk&rdquo; or &ldquo;Rewrite with Aria&rdquo; fires a pre-scoped query in one tap &mdash; no panel required.</div>
+        <div style="display:flex;gap:var(--sp-3)">
+          <div><div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--ink4);margin-bottom:3px">Problem</div><div style="font-size:12px;color:var(--ink2)">Opening the full panel for a predictable question adds unnecessary friction.</div></div>
+          <div><div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--ink4);margin-bottom:3px">Model</div><div style="font-size:12px;color:var(--ink2)">1 tap &rarr; answer inline. No panel state.</div></div>
+        </div>
+      </div>
+      <div style="padding:8px var(--sp-3);background:var(--amber-soft);border-top:1px solid var(--amber-str);font-size:12px;color:var(--amber);font-weight:500">&#8594; Pledge risk, outreach, and verification cards</div>
+    </div>
+
+    <div style="background:var(--white);border:1px solid var(--b);border-radius:var(--r2);overflow:hidden;box-shadow:var(--shadow-s)">
+      <div style="padding:var(--sp-3) var(--sp-3) var(--sp-2)">
+        <div style="display:flex;align-items:center;gap:var(--sp-1);margin-bottom:var(--sp-1)">
+          <div style="width:32px;height:32px;border-radius:var(--r);background:var(--blue-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+          <div><div style="font-size:13px;font-weight:500;color:var(--ink)">Collapsible AI Panel</div><div style="font-size:11px;color:var(--ink4)">Opt-in deep engagement</div></div>
+        </div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.5;margin-bottom:var(--sp-2)">Full Aria chat in a sliding right panel, opened on demand. Never forced. Respects expert autonomy &mdash; the single most important adoption signal for senior underwriters.</div>
+        <div style="display:flex;gap:var(--sp-3)">
+          <div><div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--ink4);margin-bottom:3px">Problem</div><div style="font-size:12px;color:var(--ink2)">Forced AI panels feel like supervision. Senior users reject them.</div></div>
+          <div><div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--ink4);margin-bottom:3px">Model</div><div style="font-size:12px;color:var(--ink2)">Human-initiated. AI-responsive. Panel preserves workspace context.</div></div>
+        </div>
+      </div>
+      <div style="padding:8px var(--sp-3);background:var(--blue-soft);border-top:1px solid var(--blue-str);font-size:12px;color:var(--blue);font-weight:500">&#8594; Global &middot; accessible from any step</div>
+    </div>
+
+    <div style="background:var(--white);border:1px solid var(--b);border-radius:var(--r2);overflow:hidden;box-shadow:var(--shadow-s);grid-column:1/-1">
+      <div style="padding:var(--sp-3) var(--sp-3) var(--sp-2)">
+        <div style="display:flex;align-items:center;gap:var(--sp-1);margin-bottom:var(--sp-1)">
+          <div style="width:32px;height:32px;border-radius:var(--r);background:var(--blue-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><circle cx="11" cy="15" r="2"/><line x1="13" y1="17" x2="16" y2="20"/></svg></div>
+          <div><div style="font-size:13px;font-weight:500;color:var(--ink)">AI Document Preview</div><div style="font-size:11px;color:var(--ink4)">Extraction + source verification</div></div>
+        </div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.5;margin-bottom:var(--sp-2)">Split-pane modal: raw document on the left, Aria&rsquo;s extracted fields on the right. Clicking any extraction row highlights the source passage in the document and jumps to the correct page. Verification becomes a 3-second action per field &mdash; not a manual re-read.</div>
+        <div style="display:flex;gap:var(--sp-6)">
+          <div><div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--ink4);margin-bottom:3px">Problem</div><div style="font-size:12px;color:var(--ink2)">Underwriters had to hunt source text manually to trust Aria&rsquo;s extractions &mdash; defeating the time savings.</div></div>
+          <div><div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--ink4);margin-bottom:3px">Model</div><div style="font-size:12px;color:var(--ink2)">AI extracts first. Human clicks any field. Document auto-scrolls and highlights.</div></div>
+        </div>
+      </div>
+      <div style="padding:8px var(--sp-3);background:var(--blue-soft);border-top:1px solid var(--blue-str);font-size:12px;color:var(--blue);font-weight:500">&#8594; Ownership card, pledgor verification, document collection &mdash; any step requiring document-level review</div>
+    </div>
+
+  </div>
+  <div class="insight">
+    <div class="insight-label">The pattern principle</div>
+    <div class="insight-body">&ldquo;Aria acts. The human gates. The record reflects a human decision. That sequence is both the right compliance posture and the only way to build trust that survives the first time Aria is wrong.&rdquo;</div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="footer-brand">Aria AI &middot; SBL Collateral Verification</div>
+  <div class="footer-meta">AI PM Product Brief v5.0 &middot; Q1&ndash;Q2 2026</div>
+</footer>
+
+<script>
+const secs=document.querySelectorAll('section[id]');
+const links=document.querySelectorAll('.nav-link');
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('active'));const a=document.querySelector('.nav-link[href="#'+e.target.id+'"]');if(a)a.classList.add('active');}});},{rootMargin:'-20% 0px -70% 0px'});
+secs.forEach(s=>io.observe(s));
+</script>
+</body>
+</html>
